@@ -1,0 +1,17 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+.idea/
+**/*.iml
+**/*.versionsBackup
+**/run.pid
+**/logs
+.classpath
+.project
+.factorypath
+.settings
+.vscode
+
