@@ -36,13 +36,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) {
-        Optional<User> oUser = repository.findById(user.getId());
+    public User update(Long userId, User user) {
+        Optional<User> oUser = repository.findById(userId);
         if (oUser.isPresent()) {
             User dbUser = oUser.get();
             dbUser.setName(user.getName());
             dbUser.setModified(user.getModified());
-            return repository.save(user);
+            return repository.save(dbUser);
         }
         return null;
     }
