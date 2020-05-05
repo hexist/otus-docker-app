@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: initdb
+spec:
+  template:
+    metadata:
+      name: initdb
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: post-install-job
+          env:
+            - name: DB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: DB_URI
+          image: postgres:latest
+          command:
+            - sh
+            - "-c"
+            - |
+              psql $DB_URI <<'EOF'
+                create table tbl_user (id SERIAL primary key, login varchar, password varchar, name varchar, created date, modified date, deleted boolean);
+              EOF
+  backoffLimit: 0

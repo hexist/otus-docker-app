@@ -14,7 +14,23 @@ spec:
     spec:
       containers:
         - name: docker-service
-          image: hexist/firstimage:0.0.1
+          image: hexist/firstimage:0.0.5
+          env:
+            - name: spring.datasource.url
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: JDBC_DB_URI
+            - name: spring.datasource.username
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: DB_USER
+            - name: spring.datasource.password
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: DB_PASSWORD
           ports:
             - name: web
               containerPort: 8000
