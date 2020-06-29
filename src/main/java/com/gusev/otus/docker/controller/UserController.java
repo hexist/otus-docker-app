@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gusev.otus.docker.model.User;
 import com.gusev.otus.docker.service.UserService;
 
+import io.micrometer.core.annotation.Timed;
+
 /**
  * User controller
  *
@@ -29,6 +31,7 @@ public class UserController {
         this.users = users;
     }
 
+    @Timed(value = "users", histogram = true)
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getUsers() {
